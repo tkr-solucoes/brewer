@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+<title>Cadastro de cidades</title>
+
+</head>
+
+<body>
+
+
+	
+		<section layout:fragment="conteudo">
+
+
+			<div class="page-header">
+				<div class="container-fluid">
+					<h1>Cadastro de cidades</h1>
+				</div>
+			</div>
+
+			<div class="container-fluid">
+
+			
+
+				<form method="POST" th:object="${cidade}" class="form-vertical  js-form-loading">
+
+				<div class="row">
+				
+					<div class="col-sm-3  form-group">
+					<label for="estilo">Estado</label>
+					<div class="bw-field-action">
+						<select id="estilo" class="form-control">
+							<option value="">Selecione o estado</option>
+							<option value="1">SP</option>
+						</select>
+					</div>
+					</div>
+					
+					<div class="col-sm-9">
+					<div class="form-group">
+						<label for="nome">Nome</label> 
+						<input id="nome" type="text" class="form-control" />
+					</div>
+					</div>
+					
+					</div>
+					
+
+					
+				</form>
+				
+				<button type="button" class="btn btn-primary">Salvar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+			</div>
+			
+		
+
+		</section>
+
+	</body>
+
+</html>
