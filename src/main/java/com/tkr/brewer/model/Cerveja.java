@@ -12,11 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -47,37 +50,42 @@ public class Cerveja implements Serializable{
 	@Size(min = 2, max = 50, message = "A descrição tem que estar entre 2 e 50")
 	private String descricao;
 	
-	//@NotEmpty(message = "O Valor é obriagatório")
+	@NotNull(message = "O Valor é obriagatório")
 	@DecimalMin(value = "0.01", message = "O valor de uma cerveja nao deve ser inferior a R$0,01")
 	@DecimalMax(value = "9999999.99", message = "O valor  da cerveja deve ser menor que R$9.999.999,99")
 	private BigDecimal valor;
 	
-	//@NotEmpty(message = "O teor alcoolico é obriagatório")
+	@NotNull(message = "O teor alcoolico é obriagatório")
 	@Column(name = "teor_alcoolico")
 	private BigDecimal teorAlcoolico;
 	
-	//@NotEmpty(message = "A comissao é obriagatória")
+	@NotNull(message = "A comissao é obriagatória")
 	@DecimalMax(value = "100" , message = "A comissao nao deve passar de 100%")
 	private BigDecimal comissao;
 	
-	//@NotEmpty(message = "O estoque é obriagatório ")
+	@NotNull(message = "O estoque é obriagatório ")
 	@Max(value = 9999 , message = "O valor nao deve ser maio que 9999"  )
 	@Min(value = 2 , message = "O valor de estoque deve ser maior que 1")
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
 	
-	//@NotEmpty(message = "A origem é obriagatória ")
+	@NotNull(message = "A origem é obriagatória ")
 	@Enumerated(EnumType.STRING)
 	private Origem origem;
 	
-	//@NotEmpty(message = "O sabpor é obriagatória ")
+	@NotNull(message = "O sabpor é obriagatória ")
 	@Enumerated(EnumType.STRING)
 	private Sabor sabor;
 	
-	//@NotEmpty(message = "O estilo é obriagatória ")
+	@NotNull(message = "O estilo é obriagatória ")
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
+	
+	@PrePersist @PreUpdate
+	public void prePersistUpdate(){
+		sku = sku.toUpperCase();
+	}
 	
 	public String getSku() {
 		return sku;
